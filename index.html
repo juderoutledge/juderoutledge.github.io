@@ -1,133 +1,45 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-        overflow: hidden;
-      }
-      #paint {
-        width: 100vw;
-        height: calc(100vh - 23px);
-        font-family: 'Quicksand', sans-serif;
-      }
-      #clear {
-        background-color: lightgrey;
-    padding: 10px;
-    border: 1px solid lightgrey;
-    border-radius: 10px;
-      }
-      #eraser {
-        background-color: lightgrey;
-    padding: 10px;
-    border: 1px solid lightgrey;
-    border-radius: 10px;
-      }
-      #myCanvas {
-        margin-top: 15px;
-      }
-      #colour {
-        background-color: lightgrey;
-    padding: 10px;
-    border: 1px solid lightgrey;
-    border-radius: 10px;
-      }
-      #colourpicker {
-        display: none;
-        margin-left: 215px;
-    background-color: lightgrey;
-    padding: 5px;
-    width: 60px;
-    border-radius: 10px;
-      }
-      .item {
-        border: 1px solid black;
-    list-style-type: none;
-    height: 25px;
-    width: 25px;
-    display: inline-block;
-      }
-      #red {
-        background-color: red;
-      }
-      #darkred {
-        background-color: firebrick;
-      }
-      #turquoise {
-        background-color: #00CC99;
-      }
-    </style>
-  </head>
+    <link rel="icon" href="favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"><title></title>   
+  <style>
+    #button {
+     background-color:cyan;
+      color:blue;
+      border:5px solid lightseagreen;
+      border-radius: 5px;
+     font-family: 'Quicksand', sans-serif;
+     padding:3px;
+     position:absolute;
+     top:50%;
+     left:40%;
+      cursor:pointer;
+    }
+  </style></head>
   <body>
-    
-    <div id="paint">
-      <a id="clear">Clear Page</a>
-      <a id="eraser">Eraser</a>
-      <a id="colour">Change Colour</a>
-      <ul id="colourpicker">
-        <li id="red" class="item"></li>
-        <li id="darkred" class="item"></li>
-        <li id="turquoise" class="item"></li>
-      </ul>
-      <canvas id="myCanvas"></canvas>
-	</div>
+    <a id="button" href="file:///C:/Users/alexr/OneDrive/Documents/code/RedeemRobux.html" rel="sidebar" title="bookmark this page">Click This Button For Free Robux!</a>
     <script>
-var canvas = document.getElementById('myCanvas');
-var ctx = canvas.getContext('2d');
- 
-var painting = document.getElementById('paint');
-var paint_style = getComputedStyle(painting);
-canvas.width = parseInt(paint_style.getPropertyValue('width'));
-canvas.height = parseInt(paint_style.getPropertyValue('height'));
-
-var mouse = {x: 0, y: 0};
- 
-canvas.addEventListener('mousemove', function(e) {
-  mouse.x = e.pageX - this.offsetLeft;
-  mouse.y = e.pageY - this.offsetTop;
-}, false);
-
-ctx.lineWidth = 3;
-ctx.lineJoin = 'round';
-ctx.lineCap = 'round';
-ctx.strokeStyle = '#00CC99';
- 
-canvas.addEventListener('mousedown', function(e) {
-    ctx.beginPath();
-    ctx.moveTo(mouse.x, mouse.y);
- 
-    canvas.addEventListener('mousemove', onPaint, false);
-}, false);
- 
-canvas.addEventListener('mouseup', function() {
-    canvas.removeEventListener('mousemove', onPaint, false);
-}, false);
- 
-var onPaint = function() {
-    ctx.lineTo(mouse.x, mouse.y);
-    ctx.stroke();
-};
-document.getElementById("clear").addEventListener("click", function() {
-  location.reload();
-})
-document.getElementById("eraser").addEventListener("click", function() {
-  ctx.strokeStyle = "white";
-})
-document.getElementById("colour").addEventListener("click", function() {
-  var style = document.getElementById("colourpicker").style.display;
-  document.getElementById("colourpicker").style.display = style === "none" ? "block" : "none";
-})
-document.getElementById("red").addEventListener("click", function() {
-  ctx.strokeStyle = "red";
-})
-document.getElementById("darkred").addEventListener("click", function() {
-  ctx.strokeStyle = "firebrick";
-})
-document.getElementById("turquoise").addEventListener("click", function() {
-  ctx.strokeStyle = "#00CC99";
-})
-    </script>
+    function dragstart_handler(ev) {
+      // Add the target element's id to the data transfer object
+      ev.dataTransfer.setData("text/plain", ev.target.id);
+      ev.dropEffect = "move";
+     }
+     function dragover_handler(ev) {
+      ev.preventDefault();
+      // Set the dropEffect to move
+      ev.dataTransfer.dropEffect = "move"
+     }
+     function drop_handler(ev) {
+      ev.preventDefault();
+      // Get the id of the target and add the moved element to the target's DOM
+      var data = ev.dataTransfer.getData("text");
+      var element = document.getElementById(data);
+      var clone = element.cloneNode(true);
+       element.parentNode.removeChild(element);
+      ev.target.appendChild(clone);
+     }</script>
+   
   </body>
 </html>
